@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,48 +16,75 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.arana.aranacarteirinha.app.navigation.Routes
+import com.arana.aranacarteirinha.core.designsystem.theme.CarteirinhaDigital2DEVEST_BTheme
 import com.arana.aranacarteirinha.feature.home_aluno.presentation.component.BotaoNavegacao
+import com.arana.aranacarteirinha.feature.login.domain.model.UsuarioLogado
 
 @Composable
 fun HomeScreen(
-    navController: NavController = NavController(
-        LocalContext.current
-    ),
+    navController: NavController = NavController(LocalContext.current),
+    usuarioLogado: UsuarioLogado,
     modifier: Modifier = Modifier
 ) {
+
     Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Top,
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Aluno",
-            fontSize = 30.sp,
+            text = "Olá, ${usuarioLogado.nome}",
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
 
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = usuarioLogado.curso,
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                Text(
+                    text = "Turma: ${usuarioLogado.turma}"
+                )
+                Text(
+                    text = "Matrícula: ${usuarioLogado.matricula}"
+                )
+            }
+        }
+
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BotaoNavegacao(
-                "Carteirinha",
-                {
+                text = "Carteirinha",
+                onClick = {
                     navController.navigate(Routes.Carteirinha.route)
                 },
-                modifier = Modifier.fillMaxWidth(.7f)
+                modifier = Modifier.fillMaxWidth()
             )
+
             BotaoNavegacao(
-                "Unidades Curriculares",
-                {
+                text = "Unidades Curriculares",
+                onClick = {
                     navController.navigate(Routes.UCAluno.route)
                 },
-                modifier = Modifier.fillMaxWidth(.7f)
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -66,9 +96,16 @@ fun HomeScreen(
 )
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(
-        modifier = Modifier
-            .padding(20.dp)
-            .fillMaxSize()
-    )
+    CarteirinhaDigital2DEVEST_BTheme {
+        HomeScreen(
+            usuarioLogado = UsuarioLogado(
+                id = "1",
+                nome = "Arana",
+                matricula = "2026000001",
+                curso = "Desenvolvimento de Sistemas",
+                turma = "2DEVEST-A",
+                token = "token"
+            )
+        )
+    }
 }

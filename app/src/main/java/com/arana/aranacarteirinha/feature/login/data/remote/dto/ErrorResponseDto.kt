@@ -1,4 +1,5 @@
 package com.arana.aranacarteirinha.feature.login.data.remote.dto
+
 import kotlinx.serialization.Serializable
 
 @Serializable

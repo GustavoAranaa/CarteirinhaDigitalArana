@@ -14,11 +14,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.arana.aranacarteirinha.R
 import com.arana.aranacarteirinha.feature.carteirinha.presetantion.component.PerfilAluno
+import com.arana.aranacarteirinha.feature.login.domain.model.UsuarioLogado
 import com.rafaelcosta.myapplication.QrCode
 
 @Composable
 fun CarteirinhaScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    usuarioLogado: UsuarioLogado
 ) {
     Box {
         Image(

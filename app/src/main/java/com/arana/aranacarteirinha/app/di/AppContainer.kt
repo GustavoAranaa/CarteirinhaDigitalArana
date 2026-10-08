@@ -1,14 +1,13 @@
 package com.arana.aranacarteirinha.app.di
 
-import com.arana.aranacarteirinha.core.auth.AuthTokenStore
-import com.arana.aranacarteirinha.feature.login.data.repository.LoginRepository
+import com.arana.aranacarteirinha.core.auth.SessionTokenStore
+import com.arana.aranacarteirinha.feature.login.domain.repository.LoginRepository
 import com.arana.aranacarteirinha.feature.unidadecurriculares.domain.repository.UnidadeCurricularRepository
 
 interface AppContainer {
+    val sessionTokenStore : SessionTokenStore
 
-    val loginRepository: LoginRepository
+    val loginRepository : LoginRepository
 
-    val unidadeCurricularRepository: UnidadeCurricularRepository
-
-    val authTokenStore: AuthTokenStore
+    val unidadeCurricularRepository : UnidadeCurricularRepository
 }
